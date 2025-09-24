@@ -2,7 +2,8 @@ FROM python:3.12-rc-alpine
 
 WORKDIR /app
 
-# Prevent downloading a new chromedriver
+# Define so the script knows not to download a new driver version, as
+# this Docker image already downloads a compatible chromedriver
 ENV AUTO_SOUTHWEST_CHECK_IN_DOCKER=1
 
 RUN apk add --update --no-cache chromium chromium-chromedriver xvfb xauth
@@ -16,5 +17,4 @@ RUN pip3 install --upgrade pip && pip3 install --no-cache-dir -r requirements.tx
 
 COPY . .
 
-# Run with JSON credentials from environment variable
 ENTRYPOINT ["python3", "-u", "southwest.py"]
